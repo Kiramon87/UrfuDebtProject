@@ -19,7 +19,7 @@ public class Application {
     private String message;
     @NotEmpty(message = "Email can't be empty")
     private String email;
-    private String status = "Рассмотрение";
+    private String status = "Consideration";
     private LocalDateTime createdAt = LocalDateTime.now();
 
     public Long getId() {

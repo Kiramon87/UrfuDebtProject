@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Applications</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="/images/logo.png" alt="University Logo">
+                <span>Ural Federal University</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/eng">Home</a></li>
+                    <li><a href="/eng/jobs">Vacancies</a></li>
+                    <li><a href="/eng/apply/applications">My Applications</a></li>
+                    <li><a href="/eng">About Us</a></li>
+                    <li><a href="/eng">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="my-applications">
+            <div class="container">
+                <h1>My Applications</h1>
+                <div class="applications">
+                    <div th:if="${#lists.isEmpty(applications)}">
+                        <h2>Currently, there are no applications</h2>
+                    </div>
+                    <div th:if="${!#lists.isEmpty(applications)}" th:each="applic : ${applications}" class="application-card">
+                        <h3 th:text="${applic.job.title}"></h3>
+                        <p><strong>Status:</strong> <span th:text="${applic.status}"></span></p>
+                        <p><strong>Submission Date:</strong> <span th:text="${#temporals.format(applic.getCreatedAt(), 'dd.MM.yyyy')}"></span></p>
+                        <a th:href="@{/eng/job/{id}(id=${applic.job.id})}" class="btn">More about the vacancy</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-logo">
+            <img src="/images/logo.png" alt="University Logo">
+            <span>Ural Federal University</span>
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="/eng">About Us</a></li>
+                <li><a href="/eng">Contact</a></li>
+                <li><a href="/eng">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="social-media">
+            <a href="https://vk.com/ural.federal.university" target="_blank"><img src="/images/vk.png" alt="VK"></a>
+            <a href="https://t.me/urfu_ru" target="_blank"><img src="/images/tg.png" alt="TG"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

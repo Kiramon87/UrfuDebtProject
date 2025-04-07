@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title th:text="${job.title}"></title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="/images/logo.png" alt="University Logo">
+                <span>Ural Federal University</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/eng">Home</a></li>
+                    <li><a href="/eng/jobs">Vacancies</a></li>
+                    <li><a href="/eng/apply/applications">My Applications</a></li>
+                    <li><a href="/eng">About Us</a></li>
+                    <li><a href="/eng">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="job-details">
+            <div class="container">
+                <h1 th:text="${job.title}"></h1>
+                <div class="job-info">
+                    <p><strong>Type:</strong> <span th:text="${job.type}"></span></p>
+                    <p><strong>Employer:</strong> <span th:text="${job.employer}"></span></p>
+                    <p><strong>Department:</strong> <span th:text="${job.department}"></span></p>
+                    <p><strong>Salary:</strong> <span th:text="${#numbers.formatDecimal(job.salary, 1, 0)}"></span></p>
+                    <p><strong>Publication Date:</strong> <span th:text="${#temporals.format(job.createdAt, 'dd.MM.yyyy')}"></span></p>
+                </div>
+                <div class="job-description">
+                    <h2>Job Description</h2>
+                    <p th:text="${job.description}"></p>
+                </div>
+                <div class="actions">
+                    <a th:href="@{/eng/apply/{id}(id=${job.id})}" class="btn btn-primary">Apply</a>
+                    <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+
+<footer class="footer">
+    <div class="container">
+        <div class="footer-logo">
+            <img src="/images/logo.png" alt="University Logo">
+            <span>Ural Federal University</span>
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="/eng">About Us</a></li>
+                <li><a href="/eng">Contact</a></li>
+                <li><a href="/eng">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="social-media">
+            <a href="https://vk.com/ural.federal.university" target="_blank"><img src="/images/vk.png" alt="VK"></a>
+            <a href="https://t.me/urfu_ru" target="_blank"><img src="/images/tg.png" alt="TG"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

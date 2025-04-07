@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vacancies and Internships</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="/images/logo.png" alt="University Logo">
+                <span>Ural Federal University</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/eng">Home</a></li>
+                    <li><a href="/eng/jobs">Vacancies</a></li>
+                    <li><a href="/eng/apply/applications">My Applications</a></li>
+                    <li><a href="/eng">About Us</a></li>
+                    <li><a href="/eng">Contact</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="hero">
+            <div class="container">
+                <h1>Find Your Ideal Vacancy or Internship</h1>
+                <p>We offer the best opportunities for students and graduates.</p>
+            </div>
+        </section>
+        <section class="job-list">
+            <div class="container">
+                <h2>Latest Vacancies</h2>
+                <form th:action="@{/static}" method="get" class="filters">
+                    <div class="filter-group">
+                        <label for="search">Search:</label>
+                        <input type="text" id="search" name="search" th:value="${param.search}" placeholder="Job Title">
+                    </div>
+                    <div class="filter-group">
+                        <label for="type">Type:</label>
+                        <select id="type" name="type">
+                            <option value="">All</option>
+                            <option th:each="type : ${jobTypes}" th:value="${type}" th:text="${type}" th:selected="${param.type == type}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">Apply Filters</button>
+                </form>
+
+                <div class="jobs">
+                    <div th:if="${#lists.isEmpty(jobs)}" class="no-jobs">
+                        <h2>Currently, there are no vacancies</h2>
+                    </div>
+                    <div th:each="job : ${jobs}" class="job-card">
+                        <h3 th:text="${job.title}"></h3>
+                        <p><strong>Type:</strong> <span th:text="${job.type}"></span></p>
+                        <p><strong>Employer:</strong> <span th:text="${job.employer}"></span></p>
+                        <p><strong>Description:</strong> <span th:text="${job.description}"></span></p>
+                        <p><strong>Department:</strong> <span th:text="${job.department}"></span></p>
+                        <a th:href="@{/eng/job/{id}(id=${job.id})}" class="btn">More Details</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-logo">
+            <img src="/images/logo.png" alt="University Logo">
+            <span>Ural Federal University</span>
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="/eng">About Us</a></li>
+                <li><a href="/eng">Contact</a></li>
+                <li><a href="/eng">Privacy Policy</a></li>
+            </ul>
+        </div>
+        <div class="social-media">
+            <a href="https://vk.com/ural.federal.university" target="_blank"><img src="/images/vk.png" alt="VK"></a>
+            <a href="https://t.me/urfu_ru" target="_blank"><img src="/images/tg.png" alt="TG"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>

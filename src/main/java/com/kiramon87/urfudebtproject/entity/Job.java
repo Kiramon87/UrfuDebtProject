@@ -2,6 +2,7 @@ package com.kiramon87.urfudebtproject.entity;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotEmpty;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.List;

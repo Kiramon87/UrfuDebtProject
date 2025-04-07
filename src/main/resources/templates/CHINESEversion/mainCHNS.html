@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>职位和实习</title>
+    <link rel="stylesheet" href="/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+<div class="wrapper">
+    <header class="header">
+        <div class="container">
+            <div class="logo">
+                <img src="/images/logo.png" alt="大学标志">
+                <span>乌拉尔联邦大学</span>
+            </div>
+            <nav class="nav">
+                <ul>
+                    <li><a href="/chns">首页</a></li>
+                    <li><a href="/chns/jobs">职位</a></li>
+                    <li><a href="/chns/apply/applications">我的申请</a></li>
+                    <li><a href="/chns">关于我们</a></li>
+                    <li><a href="/chns">联系方式</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+    <main class="main-content">
+        <section class="hero">
+            <div class="container">
+                <h1>找到您的理想职位或实习</h1>
+                <p>我们为学生和毕业生提供最佳机会。</p>
+            </div>
+        </section>
+        <section class="job-list">
+            <div class="container">
+                <h2>最新职位</h2>
+                <form th:action="@{/static}" method="get" class="filters">
+                    <div class="filter-group">
+                        <label for="search">搜索：</label>
+                        <input type="text" id="search" name="search" th:value="${param.search}" placeholder="职位名称">
+                    </div>
+                    <div class="filter-group">
+                        <label for="type">类型：</label>
+                        <select id="type" name="type">
+                            <option value="">所有</option>
+                            <option th:each="type : ${jobTypes}" th:value="${type}" th:text="${type}" th:selected="${param.type == type}"></option>
+                        </select>
+                    </div>
+                    <button type="submit" class="btn btn-primary">应用过滤器</button>
+                </form>
+
+                <div class="jobs">
+                    <div th:if="${#lists.isEmpty(jobs)}" class="no-jobs">
+                        <h2>目前没有职位</h2>
+                    </div>
+                    <div th:each="job : ${jobs}" class="job-card">
+                        <h3 th:text="${job.title}"></h3>
+                        <p><strong>类型：</strong> <span th:text="${job.type}"></span></p>
+                        <p><strong>雇主：</strong> <span th:text="${job.employer}"></span></p>
+                        <p><strong>描述：</strong> <span th:text="${job.description}"></span></p>
+                        <p><strong>部门：</strong> <span th:text="${job.department}"></span></p>
+                        <a th:href="@{chns/job/{id}(id=${job.id})}" class="btn">更多详情</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+</div>
+<footer class="footer">
+    <div class="container">
+        <div class="footer-logo">
+            <img src="/images/logo.png" alt="大学标志">
+            <span>乌拉尔联邦大学</span>
+        </div>
+        <div class="footer-links">
+            <ul>
+                <li><a href="/chns">关于我们</a></li>
+                <li><a href="/chns">联系方式</a></li>
+                <li><a href="/chns">隐私政策</a></li>
+            </ul>
+        </div>
+        <div class="social-media">
+            <a href="https://vk.com/ural.federal.university" target="_blank"><img src="/images/vk.png" alt="VK"></a>
+            <a href="https://t.me/urfu_ru" target="_blank"><img src="/images/tg.png" alt="TG"></a>
+        </div>
+    </div>
+</footer>
+</body>
+</html>
