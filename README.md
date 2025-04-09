@@ -2,3 +2,11 @@
 
 -----
 
+### ***Архитектура баз данных***
+![1](src/main/resources/static/images/DB.png)
+
+-----
+
+### ***Swagger***
+![1](src/main/resources/static/images/SwaggerView.png)
+
